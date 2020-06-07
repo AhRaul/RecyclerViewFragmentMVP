@@ -1,4 +1,4 @@
-package com.example.recyclerviewfragmentmvp.ui.main;
+package com.example.recyclerviewfragmentmvp.view;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -13,13 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.recyclerviewfragmentmvp.R;
+import com.example.recyclerviewfragmentmvp.model.RecyclerViewModel;
 
-public class MainFragment extends Fragment {
+public class RecyclerFragment extends Fragment {
 
-    private MainViewModel mViewModel;
+    private RecyclerViewModel mViewModel;
 
-    public static MainFragment newInstance() {
-        return new MainFragment();
+    public static RecyclerFragment newInstance() {
+        return new RecyclerFragment();
     }
 
     @Nullable
@@ -32,7 +33,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        mViewModel = new RecyclerViewModel();
         // TODO: Use the ViewModel
     }
 
