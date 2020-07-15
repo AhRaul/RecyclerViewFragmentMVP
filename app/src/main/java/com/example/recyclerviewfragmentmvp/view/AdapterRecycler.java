@@ -14,16 +14,20 @@ import com.example.recyclerviewfragmentmvp.presenter.IRecyclerPresenter;
 public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.MyViewHolder>{
 
     private IRecyclerPresenter iRecyclerPresenter;
+    //OnClickListener
+    private OnNoteListener mOnNoteListener;
 
-    public AdapterRecycler(IRecyclerPresenter iRecyclerPresenter) {
+    public AdapterRecycler(IRecyclerPresenter iRecyclerPresenter, OnNoteListener onNoteListener) {
         this.iRecyclerPresenter = iRecyclerPresenter;
+        //OnClickListener
+        this.mOnNoteListener = onNoteListener;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view_recycler, parent, false);
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, mOnNoteListener);
     }
 
     @Override
@@ -37,14 +41,20 @@ public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.MyView
         return iRecyclerPresenter.getItemCount();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements IViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements IViewHolder, View.OnClickListener {
 
         private TextView textView;
         private int position = 0;
+        //OnClickListener
+        OnNoteListener onNoteListener;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
             textView = itemView.findViewById(R.id.text_view);
+
+            //OnClickListener
+            this.onNoteListener = onNoteListener;
+            itemView.setOnClickListener(this);
         }
 
         @Override
@@ -56,5 +66,16 @@ public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.MyView
         public int getPos() {
             return position;
         }
+
+        //OnClickListener
+        @Override
+        public void onClick(View v) {
+            onNoteListener.onNoteClick(getAdapterPosition());
+        }
+    }
+
+    //OnClickListener
+    public interface OnNoteListener{
+        void onNoteClick(int position);
     }
 }

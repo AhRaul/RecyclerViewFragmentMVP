@@ -26,6 +26,11 @@ public class Presenter {
         public int getItemCount() {
             return list.size();
         }
+
+        @Override
+        public String getItemByPosition(int position) {
+            return list.get(position);
+        }
     }
 
     public RecyclerPresenter getRecyclerPresenter() {
